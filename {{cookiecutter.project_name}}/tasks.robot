@@ -10,7 +10,11 @@ Suite Teardown    Finalization Robot
 
 *** Test Cases ***
 Start Robot
-    Log To Console    Hello World, {{ cookiecutter.project_name }}!
+    {%- if cookiecutter.include_it_enterprise == 'yes' %}
+    Run IT-Enterprise
+    {%- else %}
+    Log To Console    {{ cookiecutter.project_name }}
+    {%- endif %}
 
 
 *** Keywords ***
