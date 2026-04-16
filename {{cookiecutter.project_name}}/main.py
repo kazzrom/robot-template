@@ -1,0 +1,23 @@
+import sys
+import subprocess
+
+
+def run_robot():
+    cmd = [
+        "uv", "run", "robot",
+        "-d", "output/logs",
+        "-V", "variables/user.py",
+        "tasks.robot"
+    ]
+
+    try:
+        subprocess.run(cmd, check=True)
+    except subprocess.CalledProcessError:
+        sys.exit(1)
+    except FileNotFoundError:
+        print("Ошибка: Файл tasks.robot или variables/user.py не найден!")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    run_robot()
