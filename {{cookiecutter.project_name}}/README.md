@@ -13,3 +13,9 @@
 1.  `resources/auth.resource`
 2. `locators/auth.py`
 3. `variables/auth.py`
+
+### Создание образа и отправка его на Docker Registary
+Чтобы собрать образ и сразу же его отправить на сервер с Docker Registary, нужно запустить скрипт:
+```bash
+./deploy.sh
+```
