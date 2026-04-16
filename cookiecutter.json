@@ -1,0 +1,5 @@
+{
+  "project_name": "my-new-bot",
+  "include_it_enterprise": ["yes", "no"],
+  "install_playwright": ["yes", "no"]
+}
