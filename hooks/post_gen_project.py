@@ -2,16 +2,13 @@ import os
 import subprocess
 
 
-if "{{ cookiecutter.include_it_enterprise }}" == "no":
-    files_it_enterprise = [
-        "resources/it_enterprise.resource",
-        "variables/it_enterprise.py",
-        "locators/it_enterprise.py",
-    ]
-
-    for file in files_it_enterprise:
-        if os.path.exists(file):
-            os.remove(file)
+def run_command(command):
+    """Вспомогательная функция для запуска команд в терминале"""
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"Ошибка при выполнении: {command}")
+        print(result.stderr)
+    return result.returncode
 
 
 def finalize_files():
@@ -24,13 +21,36 @@ def finalize_files():
         print("+++ Файл gen.py создан и готов к заполнению.")
 
 
-def run_command(command):
-    """Вспомогательная функция для запуска команд в терминале"""
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"Ошибка при выполнении: {command}")
-        print(result.stderr)
-    return result.returncode
+def include_it_enterprise():
+    if "{{ cookiecutter.include_it_enterprise }}" == "no":
+        files_it_enterprise = [
+            "resources/it_enterprise.resource",
+            "variables/it_enterprise.py",
+            "locators/it_enterprise.py",
+        ]
+
+        for file in files_it_enterprise:
+            if os.path.exists(file):
+                os.remove(file)
+
+
+def init_venv():
+    print("Инициализирую виртуальное окружение через uv")
+    run_command("uv init --no-workspace")
+
+    libraries = ["robotframework", "dotenv"]
+
+    if "{{ cookiecutter.install_playwright }}" == "yes":
+        libraries.append("robotframework-browser")
+
+    if libraries:
+        print(f"Устанавливаю библиотеки: {', '.join(libraries)}")
+        lib_string = " ".join(libraries)
+        run_command(f"uv add {lib_string}")
+
+    if "robotframework-browser" in libraries:
+        print("Инициализирую Playwright (rfbrowser init chromium)")
+        run_command("uv run rfbrowser init chromium")
 
 
 def init_git():
@@ -43,25 +63,13 @@ def init_git():
     print("+++ Git репозиторий готов. Текущая ветка: dev")
 
 
-print("Инициализирую виртуальное окружение через uv")
-run_command("uv init --no-workspace")
 
-libraries = ["robotframework", "dotenv"]
+def main():
+    include_it_enterprise()
+    init_venv()
+    finalize_files()
+    init_git()
 
-if "{{ cookiecutter.install_playwright }}" == "yes":
-    libraries.append("robotframework-browser")
 
-if libraries:
-    print(f"Устанавливаю библиотеки: {', '.join(libraries)}")
-    lib_string = " ".join(libraries)
-    run_command(f"uv add {lib_string}")
-
-if "robotframework-browser" in libraries:
-    print("Инициализирую Playwright (rfbrowser init chromium)")
-    run_command("uv run rfbrowser init chromium")
-
-finalize_files()
-
-print("Окружение настроено и библиотеки установлены.")
-
-init_git()
+if __name__ == "__main__":
+    main()
