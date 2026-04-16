@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def create_resource(name):
+def create_resource(name: str):
 {% raw %}
     resource_content = f'''*** Settings ***
 Documentation    {name}
@@ -18,7 +18,7 @@ My Keyword
 {% endraw %}
     
     files = {
-        f"resources/{name}.robot": resource_content,
+        f"resources/{name}.resource": resource_content,
         f"variables/{name}.py": "",
         f"locators/{name}.py": ""
     }
