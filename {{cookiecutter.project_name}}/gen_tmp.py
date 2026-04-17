@@ -3,6 +3,7 @@ import sys
 
 
 def create_resource(name: str):
+    keyword = name.replace('_', ' ').title()
 {% raw %}
     resource_content = f'''*** Settings ***
 Documentation    {name}
@@ -12,7 +13,7 @@ Variables    ${{EXECDIR}}${{/}}locators${{/}}{name}.py
 
 
 *** Keywords ***
-My Keyword
+Module: {keyword}
     Log To Console    keyword
 '''
 {% endraw %}
