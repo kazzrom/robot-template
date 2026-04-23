@@ -21,7 +21,7 @@ COPY resources/ ./resources/
 COPY tasks.robot .
 COPY .env .
 {% if use_dev_containers %}
-FROM robot-gui-base:latest AS dev
+FROM kazzromdocker/robot-gui-base:latest AS dev
 
 USER root
 
