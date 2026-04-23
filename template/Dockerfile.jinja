@@ -1,0 +1,41 @@
+FROM marketsquare/robotframework-browser:latest{% if use_dev_containers %} AS prod{% endif %}
+
+USER root
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+ENV UV_BREAK_SYSTEM_PACKAGES=1
+
+WORKDIR /robot
+
+COPY pyproject.toml uv.lock ./
+
+RUN uv pip install --python /home/pwuser/.venv/bin/python -r pyproject.toml && uv cache clean
+
+RUN rfbrowser init chromium
+
+COPY libraries/ ./libraries/
+COPY locators/ ./locators/
+COPY variables/ ./variables/
+COPY resources/ ./resources/
+COPY tasks.robot .
+COPY .env .
+{% if use_dev_containers %}
+FROM robot-gui-base:latest AS dev
+
+USER root
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+ENV UV_BREAK_SYSTEM_PACKAGES=1
+
+WORKDIR /robot
+
+COPY pyproject.toml uv.lock ./
+
+RUN uv pip install --python /home/pwuser/.venv/bin/python -r pyproject.toml && uv cache clean
+
+RUN rfbrowser init chromium
+
+RUN git config --global core.autocrlf true
+{%- endif -%}

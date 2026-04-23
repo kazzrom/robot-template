@@ -7,7 +7,7 @@ FULL_IMAGE_PATH="$SERVER/$IMAGE_NAME:$TAG"
 
 echo "Начинаю сборку образа: $FULL_IMAGE_PATH"
 
-docker build -t "$FULL_IMAGE_PATH" .
+docker build -t "$FULL_IMAGE_PATH" {% if use_dev_containers %}--target prod{% endif %} .
 
 if [ $? -eq 0 ]; then
     echo "Сборка завершена успешно!"

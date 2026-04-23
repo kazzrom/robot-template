@@ -1,5 +1,14 @@
-import os
+import argparse
 import subprocess
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--playwright", type=str)
+parser.add_argument("--dev_containers", type=str)
+args, _ = parser.parse_known_args()
+
+install_playwright = args.playwright == "True"
+use_dev_containers = args.dev_containers == "True"
 
 
 def run_command(command):
@@ -16,7 +25,7 @@ def init_venv():
 
     libraries = ["robotframework", "dotenv"]
 
-    if {{ install_playwright }}:
+    if install_playwright:
         libraries.append("robotframework-browser")
 
     if libraries:
@@ -40,9 +49,9 @@ def init_git():
 
 
 def main():
-    init_venv()
+    if not use_dev_containers:
+        init_venv()
     init_git()
 
 
 main()
-

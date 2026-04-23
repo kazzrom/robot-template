@@ -1,3 +1,5 @@
+_subdirectory: template
+
 project_name:
     type: str
     help: "Введите техническое название робота (snake_case)"
@@ -19,10 +21,8 @@ use_dev_containers:
     help: "Использовать Dev Containers?"
     default: false
 
-_subdirectory: template
-
 _tasks:
-  - ['python', '{{ _copier_conf.src_path }}scripts/post_gen.py']
+    - ["python", "{{ _copier_conf.src_path }}/scripts/post_gen.py", "--playwright", "{{ install_playwright }}", "--dev_containers", "{{ use_dev_containers }}"]
 
 _exclude:
     - "{% if not include_it_enterprise %}resources/it_enterprise.resource{% endif %}"
@@ -30,3 +30,4 @@ _exclude:
     - "{% if not include_it_enterprise %}locators/it_enterprise.py{% endif %}"
     - "{% if not include_it_enterprise %}resources/table.resource{% endif %}"
     - "{% if not include_it_enterprise %}locators/table.py{% endif %}"
+    - "{% if not use_dev_containers %}.devcontainer{% endif %}"

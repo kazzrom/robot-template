@@ -1,6 +1,7 @@
 {
     "version": "2.0.0",
     "tasks": [
+        {%- if use_dev_containers %}
         {
             "label": "Start VNC GUI",
             "type": "shell",
@@ -15,6 +16,7 @@
                 "runOn": "folderOpen"
             }
         },
+        {%- endif %}
         {
             "label": "Run Robot Framework",
             "type": "shell",
