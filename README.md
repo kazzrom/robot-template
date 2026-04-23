@@ -2,5 +2,8 @@
 Для удобства создания проекта робота используется менеджер зависимостей uv.
 Для создания проекта перейдите в папку, в которой хотите создать проект и запустите следующую команду:
 ```bash
-uv tool run cookiecutter -f gh:kazzrom/robot-template
+uvx copier copy "https://github.com/kazzrom/robot-template.git" . --trust
 ```
+`copier copy` принимает два путию В нашем случае:
+- `"https://github.com/kazzrom/robot-template.git"` - репозиторий-шаблон
+- `.` - путь, где будет инициализирован проект
