@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start VNC GUI",
+            "type": "shell",
+            "command": "/usr/local/bin/start-vnc.sh",
+            "isBackground": true, // Скрипт работает в фоне и не закрывается
+            "presentation": {
+                "reveal": "always",
+                "panel": "new", // Откроется в новом под-окне терминала
+                "group": "gui"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Run Robot Framework",
+            "type": "shell",
+            "command": "python main.py", // Твоя команда запуска
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated", // Для робота всегда свое отдельное окно
+                "clear": true,        // Чистит консоль перед каждым запуском
+                "showReuseMessage": false
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true // Позволит запускать по Ctrl+Shift+B
+            }
+        }
+    ]
+}

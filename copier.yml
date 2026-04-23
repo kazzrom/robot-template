@@ -1,0 +1,32 @@
+project_name:
+    type: str
+    help: "Введите техническое название робота (snake_case)"
+    default: "my_new_robot"
+
+include_it_enterprise:
+    type: bool
+    help: "Нужна интеграция с IT-Enterprise?"
+    default: true
+
+install_playwright:
+    type: bool
+    help: "Установить Playwright (Browser Library)?"
+    default: "{{ include_it_enterprise }}"
+    when: "{{ not include_it_enterprise }}"
+
+use_dev_containers:
+    type: bool
+    help: "Использовать Dev Containers?"
+    default: false
+
+_subdirectory: template
+
+_tasks:
+  - ['python', '{{ _copier_conf.src_path }}scripts/post_gen.py']
+
+_exclude:
+    - "{% if not include_it_enterprise %}resources/it_enterprise.resource{% endif %}"
+    - "{% if not include_it_enterprise %}variables/it_enterprise.py{% endif %}"
+    - "{% if not include_it_enterprise %}locators/it_enterprise.py{% endif %}"
+    - "{% if not include_it_enterprise %}resources/table.resource{% endif %}"
+    - "{% if not include_it_enterprise %}locators/table.py{% endif %}"

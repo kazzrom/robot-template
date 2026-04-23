@@ -1,7 +1,7 @@
 *** Settings ***
-Documentation    {{ cookiecutter.project_name }}
+Documentation    {{ project_name }}
 Library    Browser
-{%- if cookiecutter.include_it_enterprise == 'yes' %}
+{%- if include_it_enterprise %}
 Resource    resources${/}it_enterprise.resource
 {%- endif %}
 Suite Setup    Initialization Robot
@@ -10,10 +10,10 @@ Suite Teardown    Finalization Robot
 
 *** Test Cases ***
 Start Robot
-    {%- if cookiecutter.include_it_enterprise == 'yes' %}
+    {%- if include_it_enterprise %}
     Run IT-Enterprise
     {%- else %}
-    Log To Console    {{ cookiecutter.project_name }}
+    Log To Console    {{ project_name }}
     {%- endif %}
 
 
