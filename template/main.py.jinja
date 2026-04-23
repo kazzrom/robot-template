@@ -4,7 +4,7 @@ import subprocess
 
 def run_robot():
     cmd = [
-        "uv", "run", "robot",
+        {% if not use_dev_containers %}"uv", "run", {% endif %}"robot",
         "-d", "output/logs",
         "-V", "variables/user.py",
         "tasks.robot"
