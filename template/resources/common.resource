@@ -4,7 +4,7 @@ Library    String
 Library    DateTime
 Library    Collections
 Library    OperatingSystem
-Variables    ${EXECDIR}${/}variables${/}common${/}global.py
+Variables    ${EXECDIR}${/}variables${/}common${/}globals.py
 Variables    ${EXECDIR}${/}variables${/}common${/}paths.py
 
 

@@ -1,3 +1,5 @@
+import os
+import sys
 import argparse
 import subprocess
 
@@ -9,6 +11,17 @@ args, _ = parser.parse_known_args()
 
 install_playwright = args.playwright == "True"
 use_dev_containers = args.dev_containers == "True"
+
+
+def check_path():
+    try:
+        abspath = os.path.abspath(".")
+        abspath.encode('ascii')
+    except UnicodeEncodeError:
+        print("ОШИБКА: В пути к проекту обнаружены недопустимые символы (кириллица, пробелы или спецсимволы).")
+        print(f"Текущий путь: {os.path.abspath('.')}")
+        print("Пожалуйста, создавайте проект в папке с латинским названием без пробелов. И чтобы в пути не было кириллицы.")
+        sys.exit(1) # Прерываем выполнение
 
 
 def run_command(command):
@@ -49,6 +62,7 @@ def init_git():
 
 
 def main():
+    check_path()
     if not use_dev_containers:
         init_venv()
     init_git()
