@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    {{ project_name }}
+Documentation    Robot
 Library    Browser
 {%- if include_it_enterprise %}
 Resource    resources${/}it_enterprise.resource
@@ -13,7 +13,7 @@ Start Robot
     {%- if include_it_enterprise %}
     Run IT-Enterprise
     {%- else %}
-    Log To Console    {{ project_name }}
+    Log To Console    Hello, Robot!
     {%- endif %}
 
 

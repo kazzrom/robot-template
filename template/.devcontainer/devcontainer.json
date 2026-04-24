@@ -26,8 +26,7 @@
             "extensions": [
                 "ms-python.python",
                 "d-biehl.robotcode",
-                "charliermarsh.ruff",
-                "Codeium.codeium"
+                "charliermarsh.ruff"
             ],
             "settings": {
                 // Указываем RobotCode конкретный интерпретатор из venv

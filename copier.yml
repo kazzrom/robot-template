@@ -1,13 +1,8 @@
 _subdirectory: template
 
-project_name:
-    type: str
-    help: "Введите техническое название робота (snake_case)"
-    default: "my_new_robot"
-
 include_it_enterprise:
     type: bool
-    help: "Нужна интеграция с IT-Enterprise?"
+    help: "Включить файлы для работы с IT-Enterprise?"
     default: true
 
 install_playwright:

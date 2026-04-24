@@ -2,7 +2,6 @@
 Documentation    Запуск IT-Enterprise и авторизация в системе.
 Resource    ${EXECDIR}${/}resources${/}common.resource
 Variables    ${EXECDIR}${/}locators${/}it_enterprise.py
-Variables    ${EXECDIR}${/}variables${/}it_enterprise.py
 
 
 *** Variables ***
@@ -26,8 +25,8 @@ Authorization IT-Enterprise
 
     New Page    ${G_URL_IT_ENTERPRISE}
 
-    Safe Fill    ${L_INPUT_LOGIN}    ${G_IT_LOGIN}
-    Safe Fill    ${L_INPUT_PASSWORD}    ${G_IT_PASSWORD}
+    Safe Fill    ${L_INPUT_LOGIN}    %{IT_LOGIN}
+    Safe Fill    ${L_INPUT_PASSWORD}    %{IT_PASSWORD}
 
     Safe Click    ${L_BTN_LOGIN}
 

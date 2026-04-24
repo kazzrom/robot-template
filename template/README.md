@@ -1,22 +1,18 @@
-### Запуск робота при локальной разработке:
-Через uv: `uv run robot -d output/logs -V variables/user.py tasks.robot`
+### Запуск робота:
+```bash
+python main.py
+```
 
-### Создание ресурса
-Чтобы создать ресурс с файлом локаторов и переменных, можно прописать команду:
+### Создание ресурса c локаторами и переменными ([подробнее](https://github.com/kazzrom/rf-pw-standards/blob/main/PROJECT_STRUCTURE.md#genpy)):
+```bash
+python gen.py <название нового ресурса>
+```
 
-`python gen.py <название ресурса>`
-
-После этой команды буду созданы необходимые файлы для ресурса.
-Пример: `python gen.py auth_check`
-Название должно быть написано в стиле snake_case
-
-После выполнения будут созданы следующие файлы:
-1.  `resources/auth.resource`
-2. `locators/auth.py`
-3. `variables/auth.py`
-
-### Создание образа и отправка его на Docker Registary
-Чтобы собрать образ и сразу же его отправить на сервер с Docker Registary, нужно запустить скрипт:
+### Создание образа и отправка его на Docker Registary ([подробнее](https://github.com/kazzrom/rf-pw-standards/blob/main/PROJECT_STRUCTURE.md#deploysh)):
 ```bash
 ./deploy.sh
 ```
+
+Документация:
+- [Правила оформления кода](https://github.com/kazzrom/rf-pw-standards/blob/main/STYLEGUIDE.md)
+- [Описание структуры проекта](https://github.com/kazzrom/rf-pw-standards/blob/main/PROJECT_STRUCTURE.md)
